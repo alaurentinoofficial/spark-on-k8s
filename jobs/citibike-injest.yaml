@@ -7,9 +7,9 @@ spec:
   type: Python
   pythonVersion: "3"
   mode: cluster
-  image: "gcr.io/spark-operator/spark-py:v3.1.2"
+  image: "citibike:latest"
   imagePullPolicy: Always
-  mainApplicationFile: local:///jobs/citibike/jobs/citibike_injest.py
+  mainApplicationFile: local:///app/injest.py
   sparkVersion: "3.1.2"
   restartPolicy:
     type: OnFailure
