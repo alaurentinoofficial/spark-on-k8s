@@ -6,10 +6,10 @@ init:
 	kubectl apply -f spark-on-k8s/spark-rbac.yaml
 
 build-image:
-	docker build ./transformations -t spark-etl-jobs:latest
+	docker build . -t spark-etl-jobs:latest
 
 	# docker tag spark-etl-jobs:latest alaurentino/spark-etl-jobs:latest
 	# docker push alaurentino/spark-etl-jobs:latest
 
 citibike-run:
-	kubectl apply -f ./jobs/citibike-injest.yaml
+	kubectl apply -f spark-application.yaml
