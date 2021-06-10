@@ -6,7 +6,7 @@ make init
 
 ### Build image
 ```bash
-make citibike-build-image
+make build-image
 ```
 
 ### Run job
