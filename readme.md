@@ -1,17 +1,15 @@
 
-### Add the repository
+### Init
 ```bash
-helm repo add spark-operator https://googlecloudplatform.github.io/spark-on-k8s-operator
+make init
 ```
 
-### Configure the init steps of the spark operator
+### Build image
 ```bash
-kubectl apply -f manifest/spark-operator-rbac.yaml
-kubectl apply -f manifest/spark-operator-with-webhook.yaml
-kubectl apply -f manifest/spark-rbac.yaml
+make citibike-build-image
 ```
 
 ### Run job
 ```bash
-kubectl apply -f jobs/citibi-injest.yaml
+make citibike-run
 ```
