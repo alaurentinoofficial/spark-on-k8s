@@ -1,5 +1,4 @@
-ARG SPARK_IMAGE=gcr.io/spark-operator/spark:v3.0.0
-FROM ${SPARK_IMAGE}
+FROM gcr.io/spark-operator/spark:v3.0.0
 
 # Switch to user root so we can add additional jars and configuration files.
 USER root
@@ -19,7 +18,7 @@ USER root
 # ADD https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.11.0/jmx_prometheus_javaagent-0.11.0.jar /prometheus/
 # RUN chmod 644 /prometheus/jmx_prometheus_javaagent-0.11.0.jar
 
-# USER ${spark_uid}
+USER 1001
 
 # RUN mkdir -p /etc/metrics/conf
 # COPY conf/metrics.properties /etc/metrics/conf
