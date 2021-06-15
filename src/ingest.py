@@ -2,7 +2,9 @@ import sys
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 
-from data_transformations.citibike import ingest
+APP_NAME = "citibike-ingest"
+INPUT_PATH = "gs://twengineer/landing/citibike/"
+OUTPUT_PATH = "gs://twengineer/raw/citibike"
 
 def sanitize_columns(columns):
     return [column.replace(" ", "_") for column in columns]
@@ -23,33 +25,13 @@ def run(spark, ingest_path, transformation_path):
         ref_df
         .write
         .mode("overwrite")
-        .parquet(transformation_path
+        .parquet(transformation_path)
     )
 
 if __name__ == '__main__':
-    if len(sys.argv) is not 3:
-        logging.warning("Input source and output path are required")
-        sys.exit(1)
-
-    conf = (
-        SparkConf()
-        
-        # AWS S3
-        .set("spark.hadoop.fs.s3a.endpoint", "http://localhost:9000")
-        .set("spark.hadoop.fs.s3a.access.key", "minioadmin")
-        .set("spark.hadoop.fs.s3a.secret.key", "minioadmin")
-        .set("spark.hadoop.fs.s3a.path.style.access", True)
-        .set("spark.hadoop.fs.s3a.fast.upload", True)
-        .set("spark.hadoop.fs.s3a.connection.maximum", 100)
-        .set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-    )
-
-    spark = SparkSession.builder.appName(APP_NAME).config(conf=conf).getOrCreate()
+    spark = SparkSession.builder.appName(APP_NAME).getOrCreate()
     sc = spark.sparkContext
 
-    input_path = sys.argv[1]
-    output_path = sys.argv[2]
-
-    run(spark, input_path, output_path)
+    run(spark, INPUT_PATH, OUTPUT_PATH)
 
     spark.stop()
