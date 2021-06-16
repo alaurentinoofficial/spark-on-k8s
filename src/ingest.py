@@ -3,8 +3,8 @@ from pyspark import SparkConf
 from pyspark.sql import SparkSession
 
 APP_NAME = "citibike-ingest"
-INPUT_PATH = "gs://twengineer/landing/citibike/"
-OUTPUT_PATH = "gs://twengineer/raw/citibike"
+INPUT_PATH = "gs://sparkk8s-citibike/landing/citibike/"
+OUTPUT_PATH = "gs://sparkk8s-citibike/raw/citibike"
 
 def sanitize_columns(columns):
     return [column.replace(" ", "_") for column in columns]
