@@ -9,8 +9,11 @@ init:
 build-image:
 	docker build . -t spark-etl-jobs:latest
 
+deploy-image:
 	docker tag spark-etl-jobs:latest alaurentino/spark-etl-jobs:latest
 	docker push alaurentino/spark-etl-jobs:latest
+
+build-deploy-image: build-image deploy-image
 
 run:
 	kubectl apply -f spark-application.yaml
